@@ -1,0 +1,25 @@
+div {
+  display: inline;
+  margin: 0 auto;
+  width: 30em;
+  height: 10em;
+  background-color: antiquewhite;
+}
+
+.row {
+  display: block;
+  background-color: white;
+}
+
+.cell {
+  display: inline-block;
+  border: 1px solid black;
+  float: left;
+  margin: 0 auto;
+  width: 32%;
+  height: 100%;
+}
+
+h1 {
+  text-align: center;
+}
