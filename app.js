@@ -26,6 +26,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
   var makeBoard = function() {
 
     board = [];
+    totalMoves = 0;
 
     for (var i = 0; i < 3; i++) {
       var row = ['','','']
@@ -33,7 +34,70 @@ document.addEventListener("DOMContentLoaded", function(event) {
     }
   }
 
+  // make the board
   makeBoard();
+
+
+  // make a check for win function 
+  var checkForWin = function() {
+    // check each row to see if there are three xs or three os 
+    for (var i = 0; i < board.length; i++) {
+      var row = board[i];
+      var xCount = 0;
+      var oCount = 0;
+      for (var j = 0; j < row.length; j++) {
+        var cell = row[j];
+        if (cell === 'X') {
+          xCount++;
+        }
+        if (cell === 'O') {
+          oCount++;
+        }
+      }
+      if (xCount === 3) {
+        console.log('three xs in a row!! x wins');
+        return;
+      }
+      if (oCount === 3) {
+        console.log('three os in a row!! o wins');
+        return;
+      }
+    }
+   
+    // CHECK FOR COLUMN WINS
+    var colXCounts = [0, 0, 0];
+    var colOCounts = [0, 0, 0];
+
+    for (var i = 0; i < board.length; i++) {
+      var row = board[i];
+      for (var j = 0; j < row.length; j++) {
+        var cell = row[j];
+        if (cell === 'X') {
+          colXCounts[j]++;
+        }
+        if (cell === 'O') {
+          colOCounts[j]++;
+        }
+      }
+    }
+
+    for (var i = 0; i < colXCounts.length; i++) {
+      if (colXCounts[i] === 3) {
+        console.log('x wins by column!!');
+        return;
+      }
+      if (colOCounts[i] === 3) {
+        console.log('o wins by column!!');
+        return;
+      }
+    }
+  
+
+
+  }
+
+
+
   
 
   // Helper to switch the player turn
@@ -87,10 +151,10 @@ document.addEventListener("DOMContentLoaded", function(event) {
         }
 
         if (totalMoves === 9) {
-          console.log('board full!!!');
+          console.log('board full!!! TIE GAME');
         }
       }
-
+      checkForWin();
       return;
 
     });
