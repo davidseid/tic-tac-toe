@@ -23,3 +23,19 @@ div {
 h1 {
   text-align: center;
 }
+
+.r1 {
+  border-top: none;
+}
+
+.r3 {
+  border-bottom: none;
+}
+
+.c1 {
+  border-left: none;
+}
+
+.c3 {
+  border-right: none;
+}
