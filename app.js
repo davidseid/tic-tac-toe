@@ -18,6 +18,8 @@
 document.addEventListener("DOMContentLoaded", function(event) {
   console.log('DOM loaded')
 
+  var playerTurn = 'X';
+
   var board = [];
 
   for (var i = 0; i < 3; i++) {
@@ -25,12 +27,31 @@ document.addEventListener("DOMContentLoaded", function(event) {
     board.push(row);
   }
 
-  // need a helper function that takes the class name of a cell
-  // identifies the correct cell on the board
-  // and adds an x in there
+  // Helper to switch the player turn
+  var switchTurn = function() {
+    if (playerTurn === 'X') {
+      playerTurn = 'O';
+      return;
+    }
+    if (playerTurn === 'O') {
+      playerTurn = 'X';
+      return;
+    }
+  };
 
+  // Helper to Add X to the correct spot in the model
   var addXToModel = function(classList) {
-    
+    var row = classList[1][1] - 1;
+    var col = classList[2][1] - 1;
+    board[row][col] = 'X'
+    console.log(board);
+  }
+
+  var addOToModel = function(classList) {
+    var row = classList[1][1] - 1;
+    var col = classList[2][1] - 1;
+    board[row][col] = 'O'
+    console.log(board);
   }
 
   // Click listener to add x's 
@@ -39,8 +60,22 @@ document.addEventListener("DOMContentLoaded", function(event) {
   for (var i = 0; i < cells.length; i++) {
     var cell = cells[i];
     cell.addEventListener('click', function(event) {
-      event.target.textContent = 'X';
-      console.log(event.target.classList);
+
+      if (playerTurn === 'X') {
+        event.target.textContent = 'X';
+        var classes = event.target.classList;
+        addXToModel(classes);
+        switchTurn();
+        return;
+      }
+
+      if (playerTurn === 'O') {
+        event.target.textContent = 'O';
+        var classes = event.target.classList;
+        addOToModel(classes);
+        switchTurn();
+        return;
+      }
 
     });
   }
