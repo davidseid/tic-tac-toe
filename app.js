@@ -32,10 +32,23 @@ document.addEventListener("DOMContentLoaded", function(event) {
       var row = ['','','']
       board.push(row);
     }
+
+    document.getElementById('xwon').style.display = 'none';
+    document.getElementById('owon').style.display = 'none';
   }
 
   // make the board
   makeBoard();
+
+  var xWon = function() {
+    document.getElementById('xwon').style.display = 'block';
+    console.log('X WON!!');
+  }
+
+  var oWon = function() {
+    document.getElementById('owon').style.display = 'block';
+    console.log('O WON!!');
+  }
 
 
   // make a check for win function 
@@ -55,11 +68,11 @@ document.addEventListener("DOMContentLoaded", function(event) {
         }
       }
       if (xCount === 3) {
-        console.log('three xs in a row!! x wins');
+        xWon();
         return;
       }
       if (oCount === 3) {
-        console.log('three os in a row!! o wins');
+        oWon();
         return;
       }
     }
@@ -83,16 +96,49 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
     for (var i = 0; i < colXCounts.length; i++) {
       if (colXCounts[i] === 3) {
-        console.log('x wins by column!!');
+        xWon();
         return;
       }
       if (colOCounts[i] === 3) {
-        console.log('o wins by column!!');
-        return;
+        oWon();
+        return;g
       }
     }
-  
 
+
+    //CHECK FOR DIAGONAL WINS
+
+    if (board[0][0] === 'X') {
+      if (board[1][1] === 'X') {
+        if (board[2][2] === 'X') {
+          xWon();
+        }
+      }
+    }
+
+    if (board[2][0] === 'X') {
+      if (board[1][1] === 'X') {
+        if (board[0][2] === 'X') {
+          xWon();
+        }
+      }
+    }
+
+    if (board[0][0] === 'O') {
+      if (board[1][1] === 'O') {
+        if (board[2][2] === 'O') {
+          oWon();
+        }
+      }
+    }
+
+    if (board[2][0] === 'O') {
+      if (board[1][1] === 'O') {
+        if (board[0][2] === 'O') {
+          oWon();
+        }
+      }
+    }
 
   }
 
