@@ -20,6 +20,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
   var playerTurn = 'X';
   var board;
+  var totalMoves = 0;
   // Make Board Function
 
   var makeBoard = function() {
@@ -52,13 +53,15 @@ document.addEventListener("DOMContentLoaded", function(event) {
     var row = classList[1][1] - 1;
     var col = classList[2][1] - 1;
     board[row][col] = 'X'
+    totalMoves++;
     console.log(board);
   }
 
   var addOToModel = function(classList) {
     var row = classList[1][1] - 1;
     var col = classList[2][1] - 1;
-    board[row][col] = 'O'
+    board[row][col] = 'O';
+    totalMoves++;
     console.log(board);
   }
 
@@ -76,30 +79,27 @@ document.addEventListener("DOMContentLoaded", function(event) {
           var classes = event.target.classList;
           addXToModel(classes);
           switchTurn();
-          return;
-        }
-
-        if (playerTurn === 'O') {
+        } else if (playerTurn === 'O') {
           event.target.textContent = 'O';
           var classes = event.target.classList;
           addOToModel(classes);
           switchTurn();
-          return;
+        }
+
+        if (totalMoves === 9) {
+          console.log('board full!!!');
         }
       }
+
+      return;
 
     });
   }
 
-  // Make new game button completely reset the DOM and board
 
   var newGameButton = document.getElementsByClassName('new-game-button')[0];
-  
   newGameButton.addEventListener('click', function(event) {
-
-    // reset the board
     makeBoard();
-    // clear the DOM
 
     var cells = document.getElementsByClassName('cell');
 
@@ -107,5 +107,8 @@ document.addEventListener("DOMContentLoaded", function(event) {
       cells[i].textContent = '';
     }
   });
+
+
+  // keep track of how full the board is, if it gets full, invoke a tie game function that displays something
 
 });
