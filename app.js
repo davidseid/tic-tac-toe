@@ -19,13 +19,21 @@ document.addEventListener("DOMContentLoaded", function(event) {
   console.log('DOM loaded')
 
   var playerTurn = 'X';
+  var board;
+  // Make Board Function
 
-  var board = [];
+  var makeBoard = function() {
 
-  for (var i = 0; i < 3; i++) {
-    var row = ['','','']
-    board.push(row);
+    board = [];
+
+    for (var i = 0; i < 3; i++) {
+      var row = ['','','']
+      board.push(row);
+    }
   }
+
+  makeBoard();
+  
 
   // Helper to switch the player turn
   var switchTurn = function() {
@@ -54,30 +62,50 @@ document.addEventListener("DOMContentLoaded", function(event) {
     console.log(board);
   }
 
-  // Click listener to add x's 
+  // Click listener to add x's or o's 
   var cells = document.getElementsByClassName('cell');
 
   for (var i = 0; i < cells.length; i++) {
     var cell = cells[i];
     cell.addEventListener('click', function(event) {
 
-      if (playerTurn === 'X') {
-        event.target.textContent = 'X';
-        var classes = event.target.classList;
-        addXToModel(classes);
-        switchTurn();
-        return;
-      }
+      // if the spot is empty...
+      if (event.target.textContent === '') {
+        if (playerTurn === 'X') {
+          event.target.textContent = 'X';
+          var classes = event.target.classList;
+          addXToModel(classes);
+          switchTurn();
+          return;
+        }
 
-      if (playerTurn === 'O') {
-        event.target.textContent = 'O';
-        var classes = event.target.classList;
-        addOToModel(classes);
-        switchTurn();
-        return;
+        if (playerTurn === 'O') {
+          event.target.textContent = 'O';
+          var classes = event.target.classList;
+          addOToModel(classes);
+          switchTurn();
+          return;
+        }
       }
 
     });
   }
+
+  // Make new game button completely reset the DOM and board
+
+  var newGameButton = document.getElementsByClassName('new-game-button')[0];
+  
+  newGameButton.addEventListener('click', function(event) {
+
+    // reset the board
+    makeBoard();
+    // clear the DOM
+
+    var cells = document.getElementsByClassName('cell');
+
+    for (var i = 0; i < cells.length; i++) {
+      cells[i].textContent = '';
+    }
+  });
 
 });
