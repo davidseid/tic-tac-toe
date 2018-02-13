@@ -19,6 +19,9 @@ document.addEventListener("DOMContentLoaded", function(event) {
   var board;
   var totalMoves = 0;
 
+  // Make Render function that takes a board and renders it to the Dom
+
+
   // Function to make the board
   var makeBoard = function() {
     board = [];
@@ -99,8 +102,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
       }
     }
 
-    //CHECK FOR DIAGONAL WINS
-
+    //CHECK FOR DIAGONAL WIN
     var checkForDiagonalsWin = function() {
 
       var checkMajorDiagonal = function(player) {
@@ -146,44 +148,6 @@ document.addEventListener("DOMContentLoaded", function(event) {
     checkForColumnsWin();
     checkForDiagonalsWin(); 
   }
-
-
-
-    // if (board[0][0] === 'X') {
-    //   if (board[1][1] === 'X') {
-    //     if (board[2][2] === 'X') {
-    //       xWon();
-    //       return;
-    //     }
-    //   }
-    // }
-
-    // if (board[2][0] === 'X') {
-    //   if (board[1][1] === 'X') {
-    //     if (board[0][2] === 'X') {
-    //       xWon();
-    //       return;
-    //     }
-    //   }
-    // }
-
-    // if (board[0][0] === 'O') {
-    //   if (board[1][1] === 'O') {
-    //     if (board[2][2] === 'O') {
-    //       oWon();
-    //       return;
-    //     }
-    //   }
-    // }
-
-    // if (board[2][0] === 'O') {
-    //   if (board[1][1] === 'O') {
-    //     if (board[0][2] === 'O') {
-    //       oWon();
-    //       return;
-    //     }
-    //   }
-    // }
   
   // Function to switch player turn
   var switchTurn = function() {
