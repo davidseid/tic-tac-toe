@@ -51,6 +51,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
     xWins++;
     lastWinner = 'X';
     gameOn = false;
+    document.getElementById('xWins').textContent = `X Wins: ${xWins}`;
     console.log('X WON!!');
   }
   var oWon = function() {
@@ -58,6 +59,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
     oWins++;
     lastWinner = 'O';
     gameOn = false;
+    document.getElementById('oWins').textContent = `O Wins: ${oWins}`;
     console.log('O WON!!');
   }
   var tie = function() {
