@@ -24,6 +24,11 @@ document.addEventListener("DOMContentLoaded", function(event) {
   var lastWinner;
   var xWins = 0;
   var oWins = 0;
+  var player1 = window.prompt('Player 1 will be X, who is player 1?');
+  var player2 = window.prompt('Player 2 will be O, who is player 2?');
+  document.getElementById('xWins').textContent = `X Player: ${player1} \r\n Wins: ${xWins}`;
+  document.getElementById('oWins').textContent = `O Player: ${player2} \r\n Wins: ${oWins}`;
+
 
   // Make Render function that takes a board and renders it to the Dom
 
@@ -51,7 +56,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
     xWins++;
     lastWinner = 'X';
     gameOn = false;
-    document.getElementById('xWins').textContent = `X Wins: ${xWins}`;
+    document.getElementById('xWins').textContent = `X Player: ${player1} \r\n Wins: ${xWins}`;
     console.log('X WON!!');
   }
   var oWon = function() {
@@ -59,7 +64,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
     oWins++;
     lastWinner = 'O';
     gameOn = false;
-    document.getElementById('oWins').textContent = `O Wins: ${oWins}`;
+    document.getElementById('oWins').textContent = `O Player: ${player2} \r\n Wins: ${oWins}`;
     console.log('O WON!!');
   }
   var tie = function() {
