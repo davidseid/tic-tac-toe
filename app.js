@@ -11,18 +11,16 @@
   // Make the winning xs and os flash
   // make the background loops colors
 
-
-
 document.addEventListener("DOMContentLoaded", function(event) {
 
+  // Initialized game state
   var gameOn = true;
   var playerTurn = 'X';
   var board;
   var totalMoves = 0;
-  // Make Board Function
 
+  // Function to make the board
   var makeBoard = function() {
-
     board = [];
     gameOn = true;
     totalMoves = 0;
@@ -31,58 +29,80 @@ document.addEventListener("DOMContentLoaded", function(event) {
       var row = ['','','']
       board.push(row);
     }
-
     document.getElementById('xwon').style.display = 'none';
     document.getElementById('owon').style.display = 'none';
   }
 
-  // make the board
+  // Make the Board
   makeBoard();
 
+  // End of Game Functions
   var xWon = function() {
     document.getElementById('xwon').style.display = 'block';
     gameOn = false;
     console.log('X WON!!');
   }
-
   var oWon = function() {
     document.getElementById('owon').style.display = 'block';
     gameOn = false;
     console.log('O WON!!');
   }
-
   var tie = function() {
     document.getElementById('tie').style.display = 'block';
     gameOn = false;
     console.log('TIE')
   }
 
-
-  // make a check for win function 
+  // Check for Win Logic
   var checkForWin = function() {
     // check each row to see if there are three xs or three os 
-    for (var i = 0; i < board.length; i++) {
-      var row = board[i];
-      var xCount = 0;
-      var oCount = 0;
-      for (var j = 0; j < row.length; j++) {
-        var cell = row[j];
-        if (cell === 'X') {
-          xCount++;
+
+    var checkForRowsWin = function() {
+      
+      var checkRow = function(player, row) {
+        for (var j = 0; j < row.length; j++) {
+          var cell = row[j];
+          if (cell !== player) {
+            return false;
+          }
         }
-        if (cell === 'O') {
-          oCount++;
+        return true;
+      }
+
+      for (var i = 0; i < board.length; i++) {
+        var row = board[i];
+        if (checkRow('X', row)) {
+          xWon();
         }
-      }
-      if (xCount === 3) {
-        xWon();
-        return;
-      }
-      if (oCount === 3) {
-        oWon();
-        return;
+        if (checkRow('O', row)) {
+          oWon();
+        }
       }
     }
+
+    checkForRowsWin();
+    // for (var i = 0; i < board.length; i++) {
+    //   var row = board[i];
+    //   var xCount = 0;
+    //   var oCount = 0;
+    //   for (var j = 0; j < row.length; j++) {
+    //     var cell = row[j];
+    //     if (cell === 'X') {
+    //       xCount++;
+    //     }
+    //     if (cell === 'O') {
+    //       oCount++;
+    //     }
+    //   }
+    //   if (xCount === 3) {
+    //     xWon();
+    //     return;
+    //   }
+    //   if (oCount === 3) {
+    //     oWon();
+    //     return;
+    //   }
+    // }
    
     // CHECK FOR COLUMN WINS
     var colXCounts = [0, 0, 0];
@@ -152,12 +172,8 @@ document.addEventListener("DOMContentLoaded", function(event) {
     }
 
   }
-
-
-
   
-
-  // Helper to switch the player turn
+  // Function to switch player turn
   var switchTurn = function() {
     if (playerTurn === 'X') {
       playerTurn = 'O';
@@ -169,7 +185,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
     }
   };
 
-  // Helper to Add X to the correct spot in the model
+  // Model Updaters
   var addXToModel = function(classList) {
     var row = classList[1][1] - 1;
     var col = classList[2][1] - 1;
@@ -186,7 +202,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
     console.log(board);
   }
 
-  // Click listener to add x's or o's 
+  // Event Listener
   var cells = document.getElementsByClassName('cell');
 
   for (var i = 0; i < cells.length; i++) {
@@ -216,7 +232,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
     });
   }
 
-
+  // Game Reset Functionality
   var newGameButton = document.getElementsByClassName('new-game-button')[0];
   newGameButton.addEventListener('click', function(event) {
     makeBoard();
@@ -228,7 +244,5 @@ document.addEventListener("DOMContentLoaded", function(event) {
     }
   });
 
-
-  // keep track of how full the board is, if it gets full, invoke a tie game function that displays something
 
 });
