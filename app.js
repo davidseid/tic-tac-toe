@@ -55,10 +55,8 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
   // Check for Win Logic
   var checkForWin = function() {
-    // check each row to see if there are three xs or three os 
 
     var checkForRowsWin = function() {
-      
       var checkRow = function(player, row) {
         for (var j = 0; j < row.length; j++) {
           var cell = row[j];
@@ -80,98 +78,112 @@ document.addEventListener("DOMContentLoaded", function(event) {
       }
     }
 
-    checkForRowsWin();
-    // for (var i = 0; i < board.length; i++) {
-    //   var row = board[i];
-    //   var xCount = 0;
-    //   var oCount = 0;
-    //   for (var j = 0; j < row.length; j++) {
-    //     var cell = row[j];
-    //     if (cell === 'X') {
-    //       xCount++;
-    //     }
-    //     if (cell === 'O') {
-    //       oCount++;
-    //     }
-    //   }
-    //   if (xCount === 3) {
-    //     xWon();
-    //     return;
-    //   }
-    //   if (oCount === 3) {
-    //     oWon();
-    //     return;
-    //   }
-    // }
-   
-    // CHECK FOR COLUMN WINS
-    var colXCounts = [0, 0, 0];
-    var colOCounts = [0, 0, 0];
-
-    for (var i = 0; i < board.length; i++) {
-      var row = board[i];
-      for (var j = 0; j < row.length; j++) {
-        var cell = row[j];
-        if (cell === 'X') {
-          colXCounts[j]++;
+    var checkForColumnsWin = function() {
+      var checkColumn = function (player, column) {
+        if (board[0][column] === player) {
+          if (board[1][column] === player) {
+            if (board[2][column] === player) {
+              return true;
+            }
+          }
         }
-        if (cell === 'O') {
-          colOCounts[j]++;
+      }
+
+      for (var i = 0; i < 3; i++) {
+        if (checkColumn('X', i)) {
+          xWon();
+        }
+        if (checkColumn('O', i)) {
+          oWon();
         }
       }
     }
-
-    for (var i = 0; i < colXCounts.length; i++) {
-      if (colXCounts[i] === 3) {
-        xWon();
-        return;
-      }
-      if (colOCounts[i] === 3) {
-        oWon();
-        return;g
-      }
-    }
-
 
     //CHECK FOR DIAGONAL WINS
 
-    if (board[0][0] === 'X') {
-      if (board[1][1] === 'X') {
-        if (board[2][2] === 'X') {
-          xWon();
-          return;
+    var checkForDiagonalsWin = function() {
+
+      var checkMajorDiagonal = function(player) {
+        if (board[0][0] === player) {
+          if (board[1][1] === player) {
+            if (board[2][2] === player) {
+              return true;
+            }
+          }
         }
+        return false;
+      }
+
+      var checkMinorDiagonal = function(player) {
+        if (board[2][0] === player) {
+          if (board[1][1] === player) {
+            if (board[0][2] === player) {
+              return true;
+            }
+          }
+        }
+        return false;
+      }
+
+      if (checkMajorDiagonal('X')) {
+        xWon();
+        return;
+      } 
+      if (checkMajorDiagonal('O')) {
+        oWon();
+        return;
+      }
+      if (checkMinorDiagonal('X')) {
+        xWon();
+        return;
+      }
+      if (checkMinorDiagonal('O')) {
+        oWon();
+        return;
       }
     }
-
-    if (board[2][0] === 'X') {
-      if (board[1][1] === 'X') {
-        if (board[0][2] === 'X') {
-          xWon();
-          return;
-        }
-      }
-    }
-
-    if (board[0][0] === 'O') {
-      if (board[1][1] === 'O') {
-        if (board[2][2] === 'O') {
-          oWon();
-          return;
-        }
-      }
-    }
-
-    if (board[2][0] === 'O') {
-      if (board[1][1] === 'O') {
-        if (board[0][2] === 'O') {
-          oWon();
-          return;
-        }
-      }
-    }
-
+    checkForRowsWin();
+    checkForColumnsWin();
+    checkForDiagonalsWin(); 
   }
+
+
+
+    // if (board[0][0] === 'X') {
+    //   if (board[1][1] === 'X') {
+    //     if (board[2][2] === 'X') {
+    //       xWon();
+    //       return;
+    //     }
+    //   }
+    // }
+
+    // if (board[2][0] === 'X') {
+    //   if (board[1][1] === 'X') {
+    //     if (board[0][2] === 'X') {
+    //       xWon();
+    //       return;
+    //     }
+    //   }
+    // }
+
+    // if (board[0][0] === 'O') {
+    //   if (board[1][1] === 'O') {
+    //     if (board[2][2] === 'O') {
+    //       oWon();
+    //       return;
+    //     }
+    //   }
+    // }
+
+    // if (board[2][0] === 'O') {
+    //   if (board[1][1] === 'O') {
+    //     if (board[0][2] === 'O') {
+    //       oWon();
+    //       return;
+    //     }
+    //   }
+    // }
   
   // Function to switch player turn
   var switchTurn = function() {
@@ -243,6 +255,5 @@ document.addEventListener("DOMContentLoaded", function(event) {
       cells[i].textContent = '';
     }
   });
-
 
 });
