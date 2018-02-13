@@ -13,11 +13,17 @@
 
 document.addEventListener("DOMContentLoaded", function(event) {
 
+  // player turn starts as x
+  // if player o wins, set player turn to o
+
   // Initialized game state
   var gameOn = true;
   var playerTurn = 'X';
   var board;
   var totalMoves = 0;
+  var lastWinner;
+  var xWins = 0;
+  var oWins = 0;
 
   // Make Render function that takes a board and renders it to the Dom
 
@@ -42,11 +48,15 @@ document.addEventListener("DOMContentLoaded", function(event) {
   // End of Game Functions
   var xWon = function() {
     document.getElementById('xwon').style.display = 'block';
+    xWins++;
+    lastWinner = 'X';
     gameOn = false;
     console.log('X WON!!');
   }
   var oWon = function() {
     document.getElementById('owon').style.display = 'block';
+    oWins++;
+    lastWinner = 'O';
     gameOn = false;
     console.log('O WON!!');
   }
@@ -217,6 +227,10 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
     for (var i = 0; i < cells.length; i++) {
       cells[i].textContent = '';
+    }
+
+    if (lastWinner !== undefined) {
+      playerTurn = lastWinner;
     }
   });
 
