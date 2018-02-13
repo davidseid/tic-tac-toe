@@ -6,9 +6,12 @@ div {
   background-color: antiquewhite;
 }
 
+body {
+  background-color: antiquewhite;
+}
+
 .row {
   display: block;
-  background-color: white;
 }
 
 .cell {
@@ -18,9 +21,9 @@ div {
   margin: 0 auto;
   width: 32%;
   height: 100%;
-  text-align: center;
-  font-size: 3em;
   vertical-align: middle;
+  text-align: center;
+  font-size: 7em;
 }
 
 h1 {
@@ -52,7 +55,6 @@ h2 {
   display: block;
   width: 100%;
   height: 2em;
-  background-color: white;
   text-align: center;
 }
 

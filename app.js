@@ -7,12 +7,15 @@
   // Style it up so that it is fun when you win
   // make the new game button more prominent
   // Refactor layout with flexbox
+  // Import better xs and os
+  // Make the winning xs and os flash
+  // make the background loops colors
 
 
 
 document.addEventListener("DOMContentLoaded", function(event) {
-  console.log('DOM loaded')
 
+  var gameOn = true;
   var playerTurn = 'X';
   var board;
   var totalMoves = 0;
@@ -21,6 +24,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
   var makeBoard = function() {
 
     board = [];
+    gameOn = true;
     totalMoves = 0;
 
     for (var i = 0; i < 3; i++) {
@@ -37,12 +41,20 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
   var xWon = function() {
     document.getElementById('xwon').style.display = 'block';
+    gameOn = false;
     console.log('X WON!!');
   }
 
   var oWon = function() {
     document.getElementById('owon').style.display = 'block';
+    gameOn = false;
     console.log('O WON!!');
+  }
+
+  var tie = function() {
+    document.getElementById('tie').style.display = 'block';
+    gameOn = false;
+    console.log('TIE')
   }
 
 
@@ -107,6 +119,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
       if (board[1][1] === 'X') {
         if (board[2][2] === 'X') {
           xWon();
+          return;
         }
       }
     }
@@ -115,6 +128,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
       if (board[1][1] === 'X') {
         if (board[0][2] === 'X') {
           xWon();
+          return;
         }
       }
     }
@@ -123,6 +137,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
       if (board[1][1] === 'O') {
         if (board[2][2] === 'O') {
           oWon();
+          return;
         }
       }
     }
@@ -131,6 +146,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
       if (board[1][1] === 'O') {
         if (board[0][2] === 'O') {
           oWon();
+          return;
         }
       }
     }
@@ -176,27 +192,26 @@ document.addEventListener("DOMContentLoaded", function(event) {
   for (var i = 0; i < cells.length; i++) {
     var cell = cells[i];
     cell.addEventListener('click', function(event) {
-
-      // if the spot is empty...
-      if (event.target.textContent === '') {
-        if (playerTurn === 'X') {
-          event.target.textContent = 'X';
-          var classes = event.target.classList;
-          addXToModel(classes);
-          switchTurn();
-        } else if (playerTurn === 'O') {
-          event.target.textContent = 'O';
-          var classes = event.target.classList;
-          addOToModel(classes);
-          switchTurn();
+      if (gameOn) {
+        if (event.target.textContent === '') {
+          if (playerTurn === 'X') {
+            event.target.textContent = 'X';
+            var classes = event.target.classList;
+            addXToModel(classes);
+            switchTurn();
+          } else if (playerTurn === 'O') {
+            event.target.textContent = 'O';
+            var classes = event.target.classList;
+            addOToModel(classes);
+            switchTurn();
+          }
         }
-
-        if (totalMoves === 9) {
-          console.log('board full!!! TIE GAME');
-        }
+        checkForWin();
+        return;
       }
-      checkForWin();
-      return;
+      if (totalMoves === 9) {
+        tie();
+      }
 
     });
   }
